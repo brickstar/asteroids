@@ -1,7 +1,9 @@
-class NasaService
-  def initialize(start_date, end_date)
-    @start_date = start_date
-    @end_date = end_date
+class Presenter
+  attr_reader :start_date, :end_date
+  def initialize(dates)
+    @start_date = dates[:start_date]
+    @end_date = dates[:end_date]
+    @service = NasaService.new(@start_date, @end_date)
   end
 
   def most_dangerous_day
@@ -16,24 +18,8 @@ class NasaService
     end
   end
 
-  def raw_asteroids
-    JSON.parse(response.body, symbolize_names: true)[:near_earth_objects]
-  end
-  
-  private
-
-  def response
-    conn.get("feed?start_date=#{@start_date}&end_date=#{@end_date}&api_key=#{ENV['NASA_API_KEY']}")
-  end
-
-  def conn
-    Faraday.new("https://api.nasa.gov/neo/rest/v1/") do |faraday|
-      faraday.adapter Faraday.default_adapter
-    end
-  end
-
   def find_all_days_with_dangerous_asteroids
-    raw_asteroids.map do |key|
+    @service.raw_asteroids.map do |key|
       key if key[1][0][:is_potentially_hazardous_asteroid]
     end.compact
   end

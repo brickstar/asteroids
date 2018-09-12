@@ -31,4 +31,30 @@ describe "GET /user" do
 
     expect(response.status).to eq 401
   end
+
+  context 'GET request to /api/v1/user/favorites?api_key=abc123' do
+    xit 'should receive a json response' do
+      user = create(:user, email: "uncle.jesse@example.com", name: "Jesse Katsopolis")
+      api_key = create(:api_key)
+
+      json = [
+                {
+                    "id": 1,
+                    "neo_reference_id": "2153306",
+                    "user_id": 1,
+                    "asteroid": {
+                        "name": "153306 (2001 JL1)",
+                        "is_potentially_hazardous_asteroid": false
+                    }
+                }
+              ]
+
+      get "/api/v1/user/favorites?api_key=#{api_key.value}"
+
+      expect(response.status).to eq 200
+
+      favorite = JSON.parse(response.body, symbolize_names: true)
+      binding.pry
+    end
+  end
 end

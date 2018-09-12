@@ -21,12 +21,12 @@ describe 'visitor' do
       # And I should see "January 1, 2018 - January 7, 2018"
       expect(page).to have_content("Most dangerous day in that range: September 11, 2018")
       # And I should see a heading for the most dangerous day in that range "January 1, 2018"
-      expect(page).to have_css(".asteroid", count: 2)
+      expect(page).to have_css(".asteroid", count: 9)
       # And I should see 3 asteroids in that list
 
       within(".asteroids") do
-        expect(page).to have_content("Name: (2008 KZ5)")
-        expect(page).to have_content("NEO Reference ID: 3412889")
+        expect(page).to have_content("Name: 518640 (2008 KZ5)")
+        expect(page).to have_content("NEO Reference ID: 2518640")
       # And I should see "Name: (2014 KT76)"
       # And I should see "NEO Reference ID: 3672906"
         expect(page).to have_content("Name: (2010 CO1)")

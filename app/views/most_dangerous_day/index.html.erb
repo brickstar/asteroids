@@ -1,13 +1,13 @@
 <h1>Most Dangerous Day</h1>
 <%= @start_date.strftime('%B %e, %Y') %> - <%= @end_date.strftime('%B %e, %Y') %></br>
-<% if @most_dangerous_day.class != String %>
-  Most dangerous day in that range: <%= @most_dangerous_day.strftime('%B %e, %Y') %>
+<% if @presenter.most_dangerous_day.class != String %>
+  Most dangerous day in that range: <%= @presenter.most_dangerous_day.strftime('%B %e, %Y') %>
 <% else %>
-  Most dangerous day in that range: <%= @most_dangerous_day %>
+  Most dangerous day in that range: <%= @presenter.most_dangerous_day %>
 <% end %></br>
-<% if @asteroids.class != String %>
+<% if @presenter.asteroids.class != String %>
   <div class="asteroids">
-    <% @asteroids.each do |asteroid| %>
+    <% @presenter.asteroids.each do |asteroid| %>
       <div class="asteroid">
         Name: <%= asteroid.name %></br>
         NEO Reference ID: <%= asteroid.neo_id %>
@@ -15,5 +15,5 @@
     <% end %>
   </div>
   <% else %>
-  <%= @asteroids %>
+  <%= @presenter.asteroids %>
 <% end %>
